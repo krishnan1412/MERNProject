@@ -44,7 +44,7 @@ jobs:
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
         with:
-          src: .frontend/dist/*
+          src: .frontend/build/*
           host: ${{ secrets.HOST }}
           remote: /var/www/html
           port: ${{ secrets.PORT }}
