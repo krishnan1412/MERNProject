@@ -36,9 +36,9 @@ jobs:
       - name: SSH into Ubuntu and Deploy
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.UBUNTU_HOST }}
-          username: ${{ secrets.UBUNTU_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
           script: |
             cd /var/www/mern-app
             git pull origin main
