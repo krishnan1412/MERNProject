@@ -41,6 +41,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: To see the current directory
+        run: pwd
+
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
         with:
