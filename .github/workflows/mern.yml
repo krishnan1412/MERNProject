@@ -43,10 +43,11 @@ jobs:
 
       - name: To see the current directory
         run: |
-          if [ -d "/frontend ]; then
-          run: ls -al /frontend
+          if [ -d "/frontend" ]; then
+           ls -al /frontend
           else 
-          run: ls -al
+           ls -al
+          fi
 
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
