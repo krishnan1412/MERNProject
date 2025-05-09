@@ -18,11 +18,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Dependencies
+      - name: Install Backend Dependencies
         run: |
           cd backend
           npm install
-      - name: Install Dependencies
+      - name: Install Frontend Dependencies
         run: |
           cd frontend
           npm install
@@ -41,17 +41,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: SSH into Ubuntu and Deploy
-        uses: appleboy/ssh-action@v0.1.8
+      - name: copy the file to ubuntu instance
+        uses: nogsantos/scp-deploy@master
         with:
+          src: .frontend/dist/*
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
+          remote: /var/www/html
+          port: ${{ secrets.PORT }}
+          user: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
-          script: |
-            cd /var/www/mern-app
-            git pull origin main
-            npm install
-            pm2 restart all
+            
+      - name: Start MERN App with PM2
+        run: pm2 start backend/server.js --name "mern-app"
 
       - name: Install Apache2 (for reverse proxy)
         run: |
@@ -59,9 +60,12 @@ jobs:
           sudo a2enmod proxy proxy_http
           echo '<VirtualHost *:80>
             ServerName mydomain.com
+            ProxyPass /api http://localhost:5000/
+            ProxyPassReverse /api http://localhost:5000/
             ProxyPass / http://localhost:3000/
             ProxyPassReverse / http://localhost:3000/
-          </VirtualHost>' | sudo tee /etc/apache2/sites-available/mern.conf
+            </VirtualHost>' | sudo tee /etc/apache2/sites-available/mern.conf
+
           sudo a2ensite mern.conf
           sudo systemctl restart apache2
 
