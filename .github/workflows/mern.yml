@@ -33,9 +33,7 @@ jobs:
           cd frontend
           export NODE_OPTIONS=--openssl-legacy-provider
           npm run build
-          npm install -g server
-          serve -s build
-
+        
   deploy:
     runs-on: ubuntu-latest
     needs: build
