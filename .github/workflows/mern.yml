@@ -31,6 +31,7 @@ jobs:
         run: |
           sudo apt update
           cd frontend
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm run build
 
   deploy:
