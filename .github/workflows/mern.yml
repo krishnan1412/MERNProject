@@ -49,7 +49,9 @@ jobs:
            ls -al
           fi
       - name: change the directory
-        run: cd frontend
+        run: |
+          cd frontend
+          ls -al
 
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
