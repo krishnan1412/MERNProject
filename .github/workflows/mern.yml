@@ -52,7 +52,7 @@ jobs:
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
         with:
-          src: /home/runner/work/MERNProject/MERNProject/frontend/build/*
+          src: /home/runner/work/MERNProject/frontend/build/*
           host: ${{ secrets.HOST }}
           remote: /var/www/html
           port: ${{ secrets.PORT }}
