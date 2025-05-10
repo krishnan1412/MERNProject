@@ -48,11 +48,13 @@ jobs:
           else 
            ls -al
           fi
+      - name: change the directory
+        run: cd frontend
 
       - name: copy the file to ubuntu instance
         uses: nogsantos/scp-deploy@master
         with:
-          src: frontend/build/*
+          src: build/*
           host: ${{ secrets.HOST }}
           remote: /var/www/html
           port: ${{ secrets.PORT }}
